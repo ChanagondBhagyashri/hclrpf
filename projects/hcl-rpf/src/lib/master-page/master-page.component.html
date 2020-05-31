@@ -1,0 +1,10 @@
+
+<ng-container >
+    <ng-template [ngTemplateOutlet]="navigationTemplate"></ng-template>
+</ng-container>
+
+<ng-template #navigationTemplate>
+    <button class="btn dark_button" (click)="goBack()">Back</button>
+    <button class="btn primary_button" (click)="goForward()">NEXT</button>
+</ng-template>
+<router-outlet></router-outlet>
