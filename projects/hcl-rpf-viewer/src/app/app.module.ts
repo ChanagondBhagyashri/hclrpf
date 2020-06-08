@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HclRpfModule, RPFModuleConfiguration, RPF_CONFIGURATION, RPFMasterPageModule, ConfigService, NavigationService } from '../../../hcl-rpf/src/public-api'
+import { HclRpfModule, RPFModuleConfiguration, RPF_CONFIGURATION, RPFMasterPageModule, ConfigService } from '../../../hcl-rpf/src/public-api'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { pages } from './pages-mapping';
@@ -37,7 +37,6 @@ export function RPFConfigFactory() {
   ],
   providers: [
     { provide: ConfigService, useClass: MyCustomConfigService },
-    { provide: NavigationService, useClass: MyCustomConfigService },
   ],
   entryComponents: [ExamplePageComponent, SecondPageComponent],
   bootstrap: [AppComponent]

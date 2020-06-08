@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Route, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ConfigService } from './config.service';
-import { NavigationService } from './navigation.service';
 import { RpfConfig } from '../models/page-config.model';
 import { PfePageMappingService } from './page-mapping-service.service';
 import { PageDefinition } from '../models/page-definition.model';
-import { RPFPageConfigResolver } from './page-config-resolver.service';
+import { RPFPageConfigResolver, RPFNavPageConfigResolver } from './page-config-resolver.service';
+import {PageNavigationConfiguration} from '../models/navigation-config.model'
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +15,7 @@ export class RPFGuardServiceGuard implements CanActivate {
   constructor(
     public router: Router,
     private configService: ConfigService,
-    private pageMappingService:  PfePageMappingService,
-   // private NavigationService: NavigationService
+    private pageMappingService:  PfePageMappingService
   ) {}
   async canActivate(
     activatedRoute: ActivatedRouteSnapshot,
@@ -37,19 +36,11 @@ export class RPFGuardServiceGuard implements CanActivate {
         // Loading the config failed. Child routes cannot be generated. Master Page will trigger an error state to show an error message
         return true;
       }
-      /* let navconfig: RpfConfig;
-      try {
-        navconfig =  await this.NavigationService.getConfig();
-       
-      } catch (error) {
-        // Loading the config failed. Child routes cannot be generated. Master Page will trigger an error state to show an error message
-        return true;
-      } */
-      
+
       const pfeChildRoutes = this.generatePFERoutingConfig(config);
       activatedRoute.parent.routeConfig.children = pfeChildRoutes;
       activatedRoute.parent.routeConfig.canActivate = [RPFGuardServiceGuard];
-      
+      //TODO: make it as a config
       const firstPage: string = 'welcomePage';
       this.navigateToPageID(state, activatedRoute, firstPage);
 
@@ -76,28 +67,22 @@ export class RPFGuardServiceGuard implements CanActivate {
           const pageDefinition: PageDefinition = this.pageMappingService.getPageDefinition(page);
 
           if (pageDefinition) {
-            pfeConfig.navConfiguration.pages.forEach(item => { 
-              if(page.pageId === item.pageId){
-                const route: Route = {
-                  path: page.pageId,
-                  data: {
-                    pfePage: true,
-                    navigationalConfigration: item.nextOptionList
-                  },
-                  resolve: {
-                    pageConfig: RPFPageConfigResolver
-                  }
-                };
-                if (pageDefinition.pageComponent) {
-                  route.component = pageDefinition.pageComponent;
-                } else {
-                  route.loadChildren = pageDefinition.lazyPageRoute.loadChildren;
-                }
-                routerConfig.push(route);
+            const route: Route = {
+              path: page.pageId,
+              data: {
+                pfePage: true
+              },
+              resolve: {
+                pageConfig: RPFPageConfigResolver,
+                PageNavigationConfiguration: RPFNavPageConfigResolver
               }
-            
-          });
-
+            };
+            if (pageDefinition.pageComponent) {
+              route.component = pageDefinition.pageComponent;
+            } else {
+              route.loadChildren = pageDefinition.lazyPageRoute.loadChildren;
+            }
+            routerConfig.push(route);
           } else {
             //if (this.logger) {
             //  this.logger.errorToServer(`generatePFERoutingConfig: PageType used in configuration not found: `, page);
@@ -105,7 +90,6 @@ export class RPFGuardServiceGuard implements CanActivate {
           }
         });
       }
-    //  console.log(routerConfig);
       return routerConfig;
     }
 

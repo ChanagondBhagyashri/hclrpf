@@ -21,7 +21,14 @@ export class ConfigService {
     const config: RpfConfig<any, any> = await this.getConfig();
     const pagesConfiguration: any[] = config.pagesConfiguration;
     return pagesConfiguration.find(page => {
-      console.log(page);
+      return page.pageId === pageID;
+    });
+  }
+
+  public async getnavPageConfiguration(pageID: string): Promise<any> {
+    const config: RpfConfig<any, any> = await this.getConfig();
+    const navConfiguration: any[] = config.navConfiguration.pages;
+    return navConfiguration.find(page => {
       return page.pageId === pageID;
     });
   }

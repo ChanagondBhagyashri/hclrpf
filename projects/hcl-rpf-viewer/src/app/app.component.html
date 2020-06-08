@@ -1,1 +1,20 @@
-<lib-master-page> </lib-master-page>
+<lib-master-page [headerTemplate]='headerTemplate' [footerTemplate]='footerTemplate'> </lib-master-page>
+<ng-template #headerTemplate>
+	<div class="header-fixed">
+		<div class="header-limiter">
+			<h1><a >HCL<span>rpf</span></a></h1>
+			<nav>
+				<a>Home</a>
+			</nav>
+		</div>
+	</div>
+</ng-template>
+<ng-template #footerTemplate >
+    <div class="footer" >
+        @2020 Copyright
+    </div>
+</ng-template>
+
+
+
+

@@ -19,13 +19,12 @@ export class ExamplePageComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute, private rpfBusinessService: BusinessService<DemoAppPageConfig>) {
     // Get the page configuration from the activatedRoute:
-   
     this.pageConfig = this.rpfBusinessService.getPageConfigFromRoute(this.activatedRoute);
     this.examplePageConfig = this.pageConfig.examplePageConfig;
-   
+
     // It is also possible to subscribe to the pageConfig:
     this.activatedRoute.data.subscribe(myPageConfig => {
-     // console.log(`subscribe: ${myPageConfig}`);
+      console.log(`subscribe: ${myPageConfig}`);
     });
   }
 

@@ -1,32 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-.btn{
-    padding: 10px 20px;
-    margin: 10px;
-    text-transform: uppercase;;
-}
-
-.primary_button_disabled{    
-    background: #03A9F4;
-    color: #ffffff7a;
-    border: 2px solid #03A9F4;
-    cursor: no-drop;
-}
-.primary_button{    
-    background: #03A9F4;
-    color: #fff;
-    border: 2px solid #03A9F4;
-    cursor: pointer;
-}
-
-.dark_button_disabled{    
-    background: #607d8b;
-    color: #ffffff7a;
-    border: 2px solid #607d8b;
-    cursor: no-drop;
-}
-.dark_button{    
-    background: #607d8b;
-    color: #fff;
-    border: 2px solid #607d8b;
-    cursor: pointer;
+body {
+	margin: 0 !important;
+	padding: 0;
+	
 }

@@ -2,17 +2,16 @@ import { NgModule, Provider, ModuleWithProviders } from '@angular/core';
 import { BusinessService } from './services/business.service';
 import { RpfRoutingModule } from './rpf-routing/rpf-routing.module';
 import { ConfigService } from './services/config.service'
-import { NavigationService } from './services/navigation.service'
 import { MasterPageComponent } from './master-page/master-page.component';
 import { PfePageMappingService } from './services/page-mapping-service.service';
-import { RPFPageConfigResolver } from './services/page-config-resolver.service';
+import { RPFPageConfigResolver, RPFNavPageConfigResolver } from './services/page-config-resolver.service';
 
 const defaultProviders: Provider[] = [
   BusinessService,
   PfePageMappingService,
   RPFPageConfigResolver,
+  RPFNavPageConfigResolver,
   [{ provide: ConfigService, useClass: ConfigService }],
-  [{ provide: NavigationService, useClass: NavigationService }],
 ];
 
 @NgModule({

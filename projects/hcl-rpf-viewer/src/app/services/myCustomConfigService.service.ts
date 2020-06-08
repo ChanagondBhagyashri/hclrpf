@@ -76,6 +76,6 @@ export class MyCustomConfigService extends ConfigService {
   }
 
   get applicationId(): string {
-    return exampleConfig.navConfiguration.pages;;
+    return 'exampleappID';
   }
 }

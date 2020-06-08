@@ -1,10 +1,16 @@
+<ng-container [ngTemplateOutlet]="headerTemplate"></ng-container>
+<br /> 
+<div class="container">
+    <ng-container >
+        <button (click)="navigateBack()" class ="btn">BACK </button>
+    </ng-container>
+    </div>
 
-<ng-container >
-    <ng-template [ngTemplateOutlet]="navigationTemplate"></ng-template>
-</ng-container>
-
-<ng-template #navigationTemplate>
-    <button class="btn dark_button" (click)="goBack()">Back</button>
-    <button class="btn primary_button" (click)="goForward()">NEXT</button>
-</ng-template>
-<router-outlet></router-outlet>
+    <div class="container">
+    <router-outlet></router-outlet>
+    <ng-container >
+        <button (click)="navigateNext()" class ="btn btn-primary">NEXT </button>
+    </ng-container>
+   
+</div>
+<ng-container [ngTemplateOutlet]="footerTemplate"></ng-container>
